@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pin Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="pin-generator half-width">
+            <input id="show-pin" class="form-control" type="text" />
+            <button id="generate-pin" class="generate-btn">Generate Pin</button>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-section half-width">
+            <input id="pin-matcher-display" class="form-control" type="text" />
+            <div class="numbers">
+              <div class="calc-body">
+                <div class="calc-button-row">
+                  <div class="button" value="7" onclick="showText(7)">7</div>
+                  <div class="button" value="8" onclick="showText(8)">8</div>
+                  <div class="button" value="9" onclick="showText(9)">9</div>
+                </div>
+                <div class="calc-button-row">
+                  <div class="button" value="4" onclick="showText(4)">4</div>
+                  <div class="button" value="5" onclick="showText(5)">5</div>
+                  <div class="button" value="6" onclick="showText(6)">6</div>
+                </div>
+                <div class="calc-button-row">
+                  <div class="button" value="1" onclick="showText(1)">1</div>
+                  <div class="button" value="2" onclick="showText(2)">2</div>
+                  <div class="button" value="3" onclick="showText(3)">3
+                </div>
+              </div>
+              <div class="calc-button-row">
+                <div class="button" id="backspace"><</div>
+                <div class="button" value="0" onclick="showText(0)">0</div>
+                <div class="button" id="clear-btn" >C</div>
+              </div>
+              <div>
+                <button id="submit-pin" type="submit" class="submit-btn">Submit</button>
+                <p id="try" class="action-left">3 try left</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div  class="notify-section">
+        <p id="wrong" class="notify">❌ Pin Didn't Match, Please try again</p>
+        <p id="right" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+      </div>
+    </div>
+    <script>
+      var tryCount=3; //this will count the attempted count of the user
+      document.getElementById("wrong").style.display = "none";
+      document.getElementById("right").style.display = "none";
+
+      document
+        .getElementById("generate-pin")
+        .addEventListener("click", function () {
+          var pin = Math.floor(1000 + Math.random() * 9000); //this will generate the 4 digit pin
+          document.getElementById("show-pin").value = pin;
+        });
+        function showText(number){
+            let current_pin= document.getElementById("pin-matcher-display").value;
+            current_pin += number;
+            document.getElementById("pin-matcher-display").value=current_pin;
+
+        }
+        document.getElementById("clear-btn").addEventListener("click",function(){
+            document.getElementById("pin-matcher-display").value="";
+        })
+        document.getElementById("backspace").addEventListener("click",function(){
+            document.getElementById("pin-matcher-display").value=document.getElementById("pin-matcher-display").value.slice(0,-1);
+        });
+        document.getElementById("submit-pin").addEventListener("click",function(){
+            if (document.getElementById("pin-matcher-display").value==document.getElementById("show-pin").value){
+                document.getElementById("right").style.display="block";
+                document.getElementById("wrong").style.display = "none";
+
+                console.log("hiii");
+            }
+            else{
+                document.getElementById("wrong").style.display="block";
+                document.getElementById("right").style.display = "none";
+            }
+            count--;
+            if(count>=0){
+              document.getElementById("try").innerText= count + " try left";
+            }
+            if (count==0){
+              document.getElementById("submit-pin").disabled =true;
+              document.getElementById("submit-pin").style.backgroundColor="rgb(41, 29, 28)";
+
+            }
+            
+        });
+    </script>
+  </body>
+</html>
