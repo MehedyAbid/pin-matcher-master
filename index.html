@@ -88,17 +88,17 @@
                 document.getElementById("right").style.display="block";
                 document.getElementById("wrong").style.display = "none";
 
-                console.log("hiii");
+                
             }
             else{
                 document.getElementById("wrong").style.display="block";
                 document.getElementById("right").style.display = "none";
             }
-            count--;
+            tryCount--;
             if(count>=0){
-              document.getElementById("try").innerText= count + " try left";
+              document.getElementById("try").innerText= tryCount + " try left";
             }
-            if (count==0){
+            if (tryCount==0){
               document.getElementById("submit-pin").disabled =true;
               document.getElementById("submit-pin").style.backgroundColor="rgb(41, 29, 28)";
 
